@@ -1,3 +1,7 @@
 start_docker.sh
 start.sh
 settings.json
+db_from_pithy2.sqlite3
+db.sqlite3
+imageFetcher.py
+settings.json
