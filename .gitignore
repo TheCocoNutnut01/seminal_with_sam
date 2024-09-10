@@ -5,3 +5,7 @@ db_from_pithy2.sqlite3
 db.sqlite3
 imageFetcher.py
 settings.json
+SAM_checkpoints/sam_vit_b_01ec64.pth
+SAM_checkpoints/sam_vit_h_4b8939.pth
+/temp_images/
+

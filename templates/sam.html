@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processed Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: #f0f0f0;
+        }
+
+        .content-container {
+            text-align: left;
+            width: 50%; /* Matches image width */
+        }
+
+        .text {
+            word-wrap: break-word; /* Ensures text wraps if it's too long */
+            margin-bottom: 10px;
+        }
+
+        .buttons-container {
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 50vw; /* Image takes 50% of viewport width */
+            height: auto; /* Maintain aspect ratio */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-container">
+        <!-- Text that wraps properly -->
+        <div class="text">
+            <p>This is some descriptive text. It will automatically wrap and not overflow beyond the image below it. Even if the text is long, it will break into multiple lines.</p>
+        </div>
+
+        <!-- Buttons placed below the text -->
+        <div class="buttons-container">
+            <button onclick="generateMasks()">Generate masks</button>
+            <button onclick="addCircle()">Add Circle to Image</button>
+        </div>
+
+        <!-- Image displayed at 50% of the window width -->
+        <img id="image" src="data:image/png;base64,{{ img_data }}" alt="Image">
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+        function generateMasks() {
+            fetch('', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'generate_masks=true'
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerHTML = data.result;
+                document.getElementById('image').src = 'data:image/png;base64,' + data.image;
+            });
+        }
+
+        function addCircle() {
+            fetch('', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'add_circle=true'
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('image').src = 'data:image/png;base64,' + data.image;
+            });
+        }
+    </script>
+
+</body>
+</html>
